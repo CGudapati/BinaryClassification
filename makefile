@@ -1,13 +1,16 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -O3 -Wall -Wextra -Werror
+CXXFLAGS = -std=c++14 -O3 -Wall -Wextra 
 LDFLAGS = 
 
 all: BinaryClassification
+	
+run:
+	./BinaryClassification	
 
 clean:
 	rm -f BinaryClassification *.o
 
-BinaryClassification: main.o CoreSolver.o GradientDescent.o Matrix_Operations.o ParseSVM.o LogLoss.o
+BinaryClassification: main.o CoreSolver.o GradientDescent.o Matrix_Operations.o ParseSVM.o LogLoss.o SGDSolver.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 main.o: main.cpp
@@ -26,6 +29,9 @@ ParseSVM.o: ParseSVM/ParseSVM.cpp
 	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
 
 LogLoss.o: LossFunctions/LogLoss.cpp
+	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
+
+SGDSolver.o: Solvers/SGDSolver.cpp
 	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
 
 .PHONY: all clean

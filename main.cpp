@@ -19,7 +19,7 @@
 
 int main() {
     
-    const std::string file_path = "/Users/cgudapati/Research/BinaryClassification/data/rcv1.libsvm";
+    const std::string file_path = "/Users/cgudapati/Research/BinaryClassification/data/a1a.t";
     
     Classification_Data_CRS A;
     
@@ -48,7 +48,7 @@ int main() {
     SGDSolver SGD;
 //    lambda = 0.001;
     SGD.init(A, 0.001, 10, 10);
-//    SGD.run_solver(A);
+    SGD.run_solver(A);
     
     
     
