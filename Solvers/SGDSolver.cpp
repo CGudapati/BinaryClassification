@@ -10,7 +10,7 @@
 
 //virtual void init(const Classification_Data_CRS &A, double lam, double α, int max_iter);
 
-void SGDSolver::init(const Classification_Data_CRS &A, double lam, double α, int max_iter){
+void SGDSolver::init(const Classification_Data_CRS &A, double lam, double alpha, int max_iter){
     
     x.resize(A.n, 0); //We are creating a vector of all 0s of size n (number of features)
     grad.resize(A.n, 0); //The gradient also is of size n

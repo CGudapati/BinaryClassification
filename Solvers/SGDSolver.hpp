@@ -32,7 +32,7 @@ private:
      std::mt19937 rand_gen;
      std::uniform_int_distribution<int> distribution;
 public:
-    virtual void init(const Classification_Data_CRS &A, double lam, double α, int max_iter);
+    virtual void init(const Classification_Data_CRS &A, double lam, double alpha, int max_iter);
     virtual void run_solver(const Classification_Data_CRS& A);
     virtual void run_one_stochastic_epoch(const Classification_Data_CRS &A, std::vector<double>& x, int iter_counter);
     virtual void run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad, int epoch_counter);

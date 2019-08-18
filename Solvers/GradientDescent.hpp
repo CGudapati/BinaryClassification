@@ -23,7 +23,7 @@ public:
     int iters;
     LogLoss log_loss;
     
-    virtual void init(const Classification_Data_CRS &A ,double lam, double α, int max_iter);
+    virtual void init(const Classification_Data_CRS &A ,double lam, double alpha, int max_iter);
     virtual void run_solver(const Classification_Data_CRS& A);
     virtual void run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad, int iter_counter);
     

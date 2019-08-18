@@ -18,12 +18,12 @@
 
 #include "GradientDescent.hpp"
 
-void GradientDescent::init(const Classification_Data_CRS &A, double lam, double α, int max_iter){
+void GradientDescent::init(const Classification_Data_CRS &A, double lam, double alpha, int max_iter){
     x.resize(A.n, 0); //We are creating a vector of all 0s of size n (number of features)
     grad.resize(A.n, 0); //The gradient also is of size n
     ATx.resize(A.m, 0); //This vector holds the value of A*x. (T is times and not transpose)
     lambda = lam;
-    alpha = α;
+    alpha = alpha;
     iters = max_iter;
 }
 
