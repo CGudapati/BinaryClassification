@@ -21,7 +21,7 @@ class CoreSolver{
 public:
 //    CoreSolver() {}
 //    virtual ~CoreSolver() {}
-    virtual void init(const Classification_Data_CRS &A ,double lam, double α, int max_iter) = 0; //Implement this in the child classes
+    virtual void init(const Classification_Data_CRS &A ,double lam, double alpha, int max_iter) = 0; //Implement this in the child classes
     virtual void run_solver(const Classification_Data_CRS& A) = 0; //Implement this in the child classes
     virtual void run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad, int iter_counter) = 0;
     virtual double get_vector_norm(const std::vector<double>& v);
