@@ -19,7 +19,7 @@
 
 int main() {
     
-    const std::string file_path = "/Users/cgudapati/Research/BinaryClassification/data/a1a.t";
+    const std::string file_path = "/Users/cgudapati/Research/BinaryClassification/data/enron.libsvm";
     
     Classification_Data_CRS A;
     
@@ -39,15 +39,16 @@ int main() {
 //    std::cout << "Num features: " << M.n << "\n";
     
 //    LogLoss  log_loss;
+    std::cout << "GD: " << "\n";
+    GradientDescent GD;
+    double lambda = 0.0001;
+    GD.init(A, lambda, 10, 100);
+    GD.run_solver(A);
     
-//    GradientDescent GD;
-//    double lambda = 0.0001;
-//    GD.init(A, lambda, 10, 10);
-//    GD.run_solver(A);
-    
+    std::cout << "SGD: " << "\n";
     SGDSolver SGD;
 //    lambda = 0.001;
-    SGD.init(A, 0.001, 10, 10);
+    SGD.init(A, 0.001, 10, 100);
     SGD.run_solver(A);
     
     

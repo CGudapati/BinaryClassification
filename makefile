@@ -4,10 +4,10 @@ LDFLAGS =
 
 all: BinaryClassification
 	
-run:
+run: all
 	./BinaryClassification	
 
-clean:
+clean: 
 	rm -f BinaryClassification *.o
 
 BinaryClassification: main.o CoreSolver.o GradientDescent.o Matrix_Operations.o ParseSVM.o LogLoss.o SGDSolver.o
