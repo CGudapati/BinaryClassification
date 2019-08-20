@@ -109,28 +109,28 @@ namespace LogLoss {
         //As the algorithm progresses, we hope that the training errors reduces.
         
         
-        double train_error = 0;
+        double train_error = 0.0;
         
-        std::vector<double> z(ATx.size(), 0);  //This will hold the predictions
+        std::vector<int> z(ATx.size(), 0);  //This will hold the predictions
         
-        double prediction = 0;
+        double prediction = 0.0;
         int corrent_predictions = 0;
         
         for (std::size_t i =0; i < ATx.size(); ++i) {
             prediction = 1.0/(1.0 + exp(-1.0*ATx[i]));
-            if (prediction > 0.5){
-                z[i] = 1.0;
+            if (prediction >= 0.5){
+                z[i] = 1;
             }
             else{
                 z[i] = -1;
             }
             
-            if(A.y_label[i]==static_cast<int>(z[i])){
+            if (A.y_label[i]== z[i]) {
                 corrent_predictions++;
             }
         }
         
-        return 1-(corrent_predictions*1.0/(A.m)); // total number of correct predictions/ total number of observations.
+        return 1.0-(corrent_predictions*1.0/(A.m)); // total number of correct predictions/ total number of observations.
         
         
         
