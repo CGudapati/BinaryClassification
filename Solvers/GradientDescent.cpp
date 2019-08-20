@@ -18,20 +18,20 @@
 
 #include "GradientDescent.hpp"
 
-void GradientDescent::init(const Classification_Data_CRS &A, double lam, double alpha, int max_iter){
+void GradientDescent::init(const Classification_Data_CRS &A, double lam, double alfa, int max_iter){
     x.resize(A.n, 0); //We are creating a vector of all 0s of size n (number of features)
     grad.resize(A.n, 0); //The gradient also is of size n
     ATx.resize(A.m, 0); //This vector holds the value of A*x. (T is times and not transpose)
     lambda = lam;
-    alpha = alpha;
+    alpha = alfa;
     iters = max_iter;
 }
 
 void GradientDescent::run_solver(const Classification_Data_CRS &A){
     //Let us first set up the variables
-    log_loss.compute_data_times_vector(A, x, ATx);
-    double obj_val =  log_loss.compute_obj_val(ATx, A, x, lambda);
-    double train_error = log_loss.compute_training_error(A, ATx);
+    LogLoss::compute_data_times_vector(A, x, ATx);
+    double obj_val =  LogLoss::compute_obj_val(ATx, A, x, lambda);
+    double train_error = LogLoss::compute_training_error(A, ATx);
 //    log_loss.compute_grad_at_x(ATx, A, x, lambda, grad);  //This computes the complete gradient (i.e for all obsvs)
 //    log_loss.compute_grad_at_x(ATx, A,x, lambda, grad);
 
@@ -50,22 +50,21 @@ void GradientDescent::run_solver(const Classification_Data_CRS &A){
     //Now let us run the solver for max - iterations
     for(int k = 1; k <= this->iters; k++){
         
-        this->run_one_iter(A, x, ATx, grad, k);
+        this->run_one_iter(A, x, ATx, grad);
         
-        log_loss.compute_data_times_vector(A, x, ATx);
-        double obj_val =  log_loss.compute_obj_val(ATx, A, x, lambda);
-        double train_error = log_loss.compute_training_error(A, ATx);
-        log_loss.compute_grad_at_x(ATx, A,x, lambda, grad);
+        LogLoss::compute_data_times_vector(A, x, ATx);
+        double obj_val =  LogLoss::compute_obj_val(ATx, A, x, lambda);
+        double train_error = LogLoss::compute_training_error(A, ATx);
+        LogLoss::compute_grad_at_x(ATx, A,x, lambda, grad);
         
         std::cout << std::setw(10) << std::left << k << std::setw(20) << std::left << std::setprecision(10) << obj_val << std::setw(20) << std::left << train_error << std::setw(20) << std::left << get_vector_norm(grad)<< "\n";;
         
     }
 }
 
-void GradientDescent::run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad, int iter_counter){
+void GradientDescent::run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad){
     
-    
-    log_loss.compute_grad_at_x(ATx, A, x, lambda, grad);
+    LogLoss::compute_grad_at_x(ATx, A, x, lambda, grad);
     std::transform(x.begin(), x.end(), grad.begin(), x.begin(), [=](double x_i, double grad_i){return x_i - this->alpha*grad_i;});
     
     

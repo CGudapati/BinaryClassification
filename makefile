@@ -10,7 +10,7 @@ run: all
 clean: 
 	rm -f BinaryClassification *.o
 
-BinaryClassification: main.o CoreSolver.o GradientDescent.o Matrix_Operations.o ParseSVM.o LogLoss.o SGDSolver.o
+BinaryClassification: main.o CoreSolver.o GradientDescent.o Matrix_Operations.o ParseSVM.o SGDSolver.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 main.o: main.cpp
@@ -26,9 +26,6 @@ Matrix_Operations.o: ParseSVM/Matrix_Operations.cpp
 	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
 
 ParseSVM.o: ParseSVM/ParseSVM.cpp
-	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
-
-LogLoss.o: LossFunctions/LogLoss.cpp
 	$(CXX) $(CXXFLAGS) -c $^ $(LDFLAGS)
 
 SGDSolver.o: Solvers/SGDSolver.cpp

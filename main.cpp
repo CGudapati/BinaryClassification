@@ -11,7 +11,6 @@
 #include "ParseSVM/ParseSVM.hpp"
 #include "ParseSVM/Matrix_Operations.hpp"
 #include "helper.h"
-#include "LossFunctions/LogLoss.hpp"
 #include "Solvers/GradientDescent.hpp"
 #include "Solvers/SGDSolver.hpp"
 

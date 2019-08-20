@@ -21,7 +21,7 @@ double cumulative_sum( std::vector<int> &Cp, std::vector<int> &col_count, int n 
     }
     Cp[n] = nz;
     
-    return (float)nz;
+    return (double)nz;
     
 }
 

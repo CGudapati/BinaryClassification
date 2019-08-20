@@ -10,7 +10,10 @@
 
 //virtual void init(const Classification_Data_CRS &A, double lam, double α, int max_iter);
 
-void SGDSolver::init(const Classification_Data_CRS &A, double lam, double alpha, int max_iter){
+void SGDSolver::init(const Classification_Data_CRS &A, double lam, double alfa, int max_iter){
+    
+    (void) alfa;
+    (void) lam;
     
     x.resize(A.n, 0); //We are creating a vector of all 0s of size n (number of features)
     grad.resize(A.n, 0); //The gradient also is of size n
@@ -31,13 +34,13 @@ void SGDSolver::run_solver(const Classification_Data_CRS &A){
     // the x variable will be updated at each sample that has been analysed.
     
     //Let us first set up the variables
-    log_loss.compute_data_times_vector(A, x, ATx);
-    double obj_val =  log_loss.compute_obj_val(ATx, A, x, lambda);
+    LogLoss::compute_data_times_vector(A, x, ATx);
+    double obj_val =  LogLoss::compute_obj_val(ATx, A, x, lambda);
     
-    //    log_loss.compute_grad_at_x(ATx, A, x, lambda, grad);  //This computes the complete gradient (i.e for all obsvs)
+    //    LogLoss::compute_grad_at_x(ATx, A, x, lambda, grad);  //This computes the complete gradient (i.e for all obsvs)
     
-    double train_error = log_loss.compute_training_error(A, ATx);
-    log_loss.compute_grad_at_x(ATx, A,x, lambda, grad);
+    double train_error = LogLoss::compute_training_error(A, ATx);
+    LogLoss::compute_grad_at_x(ATx, A,x, lambda, grad);
     
     //Setting up the output that would be visible on screen"
     std::cout << "   Iter  " <<  "    obj. val  " << "     training error "  << "        Gradient Norm  " << "\n";
@@ -48,12 +51,13 @@ void SGDSolver::run_solver(const Classification_Data_CRS &A){
     
     //Now let us run the solver for all the epochs
     for(int t = 1; t <= this->epochs; t++){
+        
         this->run_one_stochastic_epoch(A, x, t);
-        log_loss.compute_data_times_vector(A, x, ATx);
-        obj_val =  log_loss.compute_obj_val(ATx, A, x, lambda);
-        train_error = log_loss.compute_training_error(A, ATx);
-        log_loss.compute_grad_at_x(ATx, A,x, lambda, grad);
-        std::cout << std::setw(10) << std::left << 0 << std::setw(20) << std::left << std::setprecision(10) << obj_val << std::setw(20) << std::left << train_error << std::setw(20) << std::left << get_vector_norm(grad)<< "\n";
+        LogLoss::compute_data_times_vector(A, x, ATx);
+        obj_val =  LogLoss::compute_obj_val(ATx, A, x, lambda);
+        train_error = LogLoss::compute_training_error(A, ATx);
+        LogLoss::compute_grad_at_x(ATx, A,x, lambda, grad);
+        std::cout << std::setw(10) << std::left << t << std::setw(20) << std::left << std::setprecision(10) << obj_val << std::setw(20) << std::left << train_error << std::setw(20) << std::left << get_vector_norm(grad)<< "\n";
 
     }
     
@@ -177,10 +181,9 @@ void SGDSolver::run_one_stochastic_epoch(const Classification_Data_CRS &A, std::
 }
 
 
-void SGDSolver::run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad, int iter_counter){
+void SGDSolver::run_one_iter(const Classification_Data_CRS &A, std::vector<double>& x, std::vector<double>& ATx, std::vector<double>& grad){
     (void) A;
     (void) x;
     (void) ATx;
     (void) grad;
-    (void) iter_counter;
 }
