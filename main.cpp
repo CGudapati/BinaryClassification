@@ -16,9 +16,10 @@
 
 //#include "Solvers/CoreSolver.hpp"
 
-int main() {
+int main(int argc, const char * argv[]) {
     
-    const std::string file_path = "/Users/cgudapati/Research/BinaryClassification/data/enron.libsvm";
+    
+    const std::string file_path = argv[1];
     
     Classification_Data_CRS A;
     
@@ -26,31 +27,21 @@ int main() {
     //We will store the problem data in variable A and the data is going to be normalized
     get_CRSM_from_svm(A, file_path);
     
-//    std::cout <<  "The  first index of row ptr is " << A.row_ptr[10] << std::endl;
-//    std::cout <<  "The  first index  of colid is " << A.col_index[10000] << std::endl;
-//    std::cout <<  "The  first index  of values is " << A.values[10000] << std::endl;
-
-    
-//    print_vector(M.col_index);
-//    print_vector(M.row_ptr);
-//    print_vector(A.values);
-//    print_vector(M.y_label);
-//    std::cout << "Num features: " << M.n << "\n";
-    
-//    LogLoss  log_loss;
     std::cout << "GD: " << "\n";
     GradientDescent GD;
     double lambda = 0.0001;
-    GD.init(A, lambda, 10, 100);
+    double Lips = 10.0;
+    int iters = 100;
+    GD.init(A, lambda, Lips, iters);
     GD.run_solver(A);
     
-    std::cout << "SGD: " << "\n";
-    SGDSolver SGD;
-//    lambda = 0.001;
-    SGD.init(A, 0.001, 10, 100);
-    SGD.run_solver(A);
-    
-    
+//    std::cout << "SGD: " << "\n";
+//    SGDSolver SGD;
+////    lambda = 0.001;
+//    SGD.init(A, 0.001, 10, 100);
+//    SGD.run_solver(A);
+//
+//
     
     
 }

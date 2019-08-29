@@ -46,8 +46,6 @@ void SGDSolver::run_solver(const Classification_Data_CRS &A){
     std::cout << "   Iter  " <<  "    obj. val  " << "     training error "  << "        Gradient Norm  " << "\n";
     std::cout << std::setw(10) << std::left << 0 << std::setw(20) << std::left << std::setprecision(10) << obj_val << std::setw(20) << std::left << train_error << std::setw(20) << std::left << get_vector_norm(grad)<< "\n";
     
-    // Now we have to update x.                           L
-    //    std::transform(x.begin(), x.end(), grad.begin(), x.begin(), [=](double x_i, double grad_i){return x_i - this->eta*grad_i;});
     
     //Now let us run the solver for all the epochs
     for(int t = 1; t <= this->epochs; t++){
@@ -116,7 +114,9 @@ void SGDSolver::run_one_stochastic_epoch(const Classification_Data_CRS &A, std::
             rand_aTx += A.values[i]*x[A.col_index[i]];
         }
         factor_1 = (-1.0*y)/(1.0+exp(y*rand_aTx));
-        grad.resize(A.n, 0);  //Most likely not needed
+        
+//        grad.resize(A.n, 0);  //Most likely not needed
+        
         for (auto i = A.row_ptr[random_obs_index]; i < A.row_ptr[random_obs_index+1]; i++){
             grad[A.col_index[i]] = factor_1*A.values[i];
         }
@@ -125,7 +125,7 @@ void SGDSolver::run_one_stochastic_epoch(const Classification_Data_CRS &A, std::
         
         // The update x = x - η(g + λx)   is slightly tricky. We can write it as follows:
         // x = x -ηλx -ηg => x = (1 -ηλ)x -ηg. On face of it, it is changing every single coordinate of x and can not do a sparse update. But we can use
-        // a scaling trick to make a sparse update.  The following matlab code gives an idea how to do it. We choose a scale 's' and rescale 'g' using 's' and update the
+        // a scaling trick to make a sparse update.  The following matlab code gives an idea how to do it. We choose a scale 's' and rescale g (gadient) using 's' and update the
         // scale at every iteration. Then we will multiply the final w with the updated scale.
         
         //                    Changing all coordinates

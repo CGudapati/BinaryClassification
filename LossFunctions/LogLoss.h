@@ -10,7 +10,7 @@
 #define LogLoss_h
 
 #include <stdio.h>
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include <functional>
 #include <algorithm>
@@ -20,7 +20,7 @@
 
 namespace LogLoss {
     
-    
+    //This function calculates the A*x vector
     inline void compute_data_times_vector( const Classification_Data_CRS&  A, const std::vector<double>& x, std::vector<double> & ATx){
         
         std::fill(ATx.begin(), ATx.end(), 0.0);  //Setting the ATx vector to 0;
@@ -36,6 +36,7 @@ namespace LogLoss {
     }
     
     
+    // This function calculates the objective value
     inline double compute_obj_val(const std::vector<double> &ATx, const Classification_Data_CRS &A, const std::vector<double>& x,  double lambda){
         
         //The objective function is
@@ -61,6 +62,8 @@ namespace LogLoss {
     }
     
     
+    
+    //Gradient computation at a given point, x
     inline void compute_grad_at_x(const std::vector<double> &ATx, const Classification_Data_CRS &A, const std::vector<double> &x, double lambda, std::vector<double> &grad){
         
         // Set the gradient to zero as you have to caclulate it from scratch. The gradient is a vector of n (number of features) elements.
@@ -92,6 +95,8 @@ namespace LogLoss {
         
     }
     
+    
+    //Computing the training error
     inline double compute_training_error(const Classification_Data_CRS& A, const std::vector<double>& ATx){
         
         // We calculate the training errors as follows
@@ -131,9 +136,6 @@ namespace LogLoss {
         }
         
         return 1.0-(corrent_predictions*1.0/(A.m)); // total number of correct predictions/ total number of observations.
-        
-        
-        
         
         return train_error;
     }

@@ -8,7 +8,6 @@
 
 #include "CoreSolver.hpp"
 
-
 double CoreSolver::get_vector_norm(const std::vector<double>& v){
     double accum = 0.0;
     
